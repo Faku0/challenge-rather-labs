@@ -27,3 +27,7 @@ MAINNET_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/PnlcisZpSK6oE4UIFSkp1dEHnjn
 DEPLOYMENT_COOLDOWN_SECONDS= 3000
 
 HARDHAT_SHOW_LOGS= true
+
+Video de funcionamiento
+
+https://www.youtube.com/watch?v=O7XjsZBd2TQ
