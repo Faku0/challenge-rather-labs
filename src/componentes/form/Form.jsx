@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import Survey from '../../artifacts/contracts/Survey.sol/Survey.json';
 import './formStyles.css';
@@ -8,7 +8,7 @@ const contractAcc = "0x437eF217203452317C3C955Cf282b1eE5F6aaF72";
 
 
 export default function Form() {
-    const id = 181818;
+    const id = Math.random();
 
     async function requestAcc() {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -21,14 +21,12 @@ export default function Form() {
 
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
-                console.log(signer);
 
                 const contract = new ethers.Contract(contractAcc, Survey.abi, signer);
-                console.log(contract);
+
                 const transaction = await contract.submit(id, [1, 3, 1]);
                 transaction.wait();
                 await contract.setCooldown(10);
-                console.log(transaction);
             }
         } catch (error) {
             console.log(error);
@@ -37,7 +35,7 @@ export default function Form() {
 
     const [currentAns, setCurrentAns] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
-    const [lifeTime, setLifeTime] = useState(15);
+    const [lifeTime, setLifeTime] = useState(quiz.questions[currentAns].lifetimeSeconds);
     const [areDisabled, setAreDisabled] = useState(false);
     const [respuesta, setRespuesta] = useState([]);
 
@@ -50,8 +48,9 @@ export default function Form() {
             } else {
                 setCurrentAns(currentAns + 1);
             }
-        }, 300);
+        }, 200);
         setRespuesta((prevState) => ([...prevState, text]));
+        setLifeTime(quiz.questions[currentAns + 1].lifetimeSeconds)
     }
 
     useEffect(() => {
@@ -88,7 +87,7 @@ export default function Form() {
                         ) : (
                             <button className="nextButton" onClick={() => {
                                 setAreDisabled(false);
-                                setLifeTime(15);
+                                setLifeTime(quiz.questions[currentAns + 1].lifetimeSeconds);
                                 setCurrentAns(currentAns + 1);
                                 setRespuesta((prevState) => ([...prevState, 'No answer']));
                             }}>Siguiente pregunta</button>
