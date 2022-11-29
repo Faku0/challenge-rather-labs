@@ -12,6 +12,8 @@ https://docs.ethers.io/v5/
 Solidity
 https://docs.soliditylang.org/en/v0.8.4/
 
+
+
 archivo .env
 
 HARDHAT_FORK_NETWORK= goerli key
@@ -28,6 +30,7 @@ DEPLOYMENT_COOLDOWN_SECONDS= 3000
 
 HARDHAT_SHOW_LOGS= true
 
-Video de funcionamiento
 
+
+Video de funcionamiento
 https://www.youtube.com/watch?v=O7XjsZBd2TQ
